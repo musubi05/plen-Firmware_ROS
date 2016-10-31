@@ -1,0 +1,28 @@
+{
+  "name": "ble_node",
+  "version": "1.0.0",
+  "description": "ROS BLE for PLEN",
+  "main": "bleNode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plenprojectcompany/plen-Firmware_ROS.git"
+  },
+  "keywords": [
+    "ROS",
+    "BLE",
+    "PLEN"
+  ],
+  "author": "Tatsuroh Sakaguchi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plenprojectcompany/plen-Firmware_ROS/issues"
+  },
+  "homepage": "https://github.com/plenprojectcompany/plen-Firmware_ROS#readme",
+  "dependencies": {
+    "bleno": "^0.4.1",
+    "rosnodejs": "^1.0.0"
+  }
+}
