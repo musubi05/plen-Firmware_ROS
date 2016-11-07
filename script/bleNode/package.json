@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/plenprojectcompany/plen-Firmware_ROS#readme",
   "dependencies": {
+    "async": "^2.1.2",
     "bleno": "^0.4.1",
     "rosnodejs": "^1.0.0"
   }
