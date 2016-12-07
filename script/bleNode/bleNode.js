@@ -2,10 +2,11 @@ var bleno = require('bleno');
 var rosnodejs = require('rosnodejs');
 const std_msgs = rosnodejs.require('std_msgs');
 
-rosnodejs.initNode('bleNode');
+rosnodejs.initNode('ble_node');
 
 const nodehandle = rosnodejs.nh;
-const publisher = nodehandle.advertise('/BleToControl', 'std_msgs/String');
+const to_gpio = nodehandle.advertise('to_gpio', 'std_msgs/String');
+const to_serial = nodehandle.advertise('to_serial', 'std_msgs/String');
 
 var name = 'hoge';
 var serviceUUIDs = ['E1F40469-CFE1-43C1-838D-DDBC9DAFDDE6']
@@ -31,8 +32,15 @@ bleno.on('advertisingStart', function(error) {
             properties : ['write','writeWithoutResponse'],
             onWriteRequest : function(data, offset, withoutResponse, callback) {
               const msg = new std_msgs.msg.String();
-              msg.data = data;
-              publisher.publish(msg);
+              data.forEach(function(i) {
+                msg.data += data[i];
+              });
+              if(/#|\$|<|>/.test(msg.data)) {
+                to_gpio.publish(new std_msgs.msg.String("w,act"))
+              } else {
+                msg.data = "w," + msg.data;
+                to_serial.publish(msg);
+              }
               console.log('write request: ' + data[0]);
               callback(bleno.Characteristic.RESULT_SUCCESS);
             }
